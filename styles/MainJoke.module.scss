@@ -1,0 +1,101 @@
+.MainJoke {
+    width: 100vw;
+    align-self: center;
+    background-color: var(--wash);
+    padding: 4rem;
+    border-bottom: 1px solid var(--border-color);
+    &__Container {
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    &__button {
+      padding-top: 5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      align-items: center;
+    }
+    .joke_spliter {
+      padding: 1.5rem 0;
+    }
+  }
+  @media only screen and (max-width: 850px) {
+    .MainJoke {
+      padding: 3rem;
+      .joke_spliter {
+        padding: 0.5rem;
+      }
+      &__button {
+        gap: 2rem;
+      }
+      .buttonComponent {
+        padding: 0.8rem 2rem;
+      }
+    }
+  }
+  @media only screen and (max-width: 592px) {
+    .spliter {
+      display: none;
+    }
+    .joke_spliter {
+      display: none;
+    }
+    .MainJoke {
+      padding: 2rem;
+      &__button {
+        gap: 2rem;
+      }
+      .buttonComponent {
+        padding: 0.8rem 2rem;
+      }
+    }
+  }
+  @media only screen and (max-width: 519px) {
+    .MainJoke {
+      padding: 1rem 1rem 3rem 1rem;
+    }
+  }
+  @media only screen and (max-width: 415px) {
+    .MainJoke {
+      padding: 4rem 2rem;
+      &__button {
+        gap: 1rem;
+      }
+      .buttonComponent {
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .MainJoke {
+      &__button {
+        padding: 2rem 4rem;
+      }
+      .buttonComponent {
+        padding: 0.7rem 2rem;
+      }
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .MainJoke {
+      &__button {
+        padding: 2rem 1rem;
+      }
+      .buttonComponent {
+        padding: 0.7rem 2rem;
+      }
+    }
+  }
+  @media only screen and (max-width: 335px) {
+    .MainJoke {
+      padding: 2rem 1rem;
+      &__button {
+        gap: 2rem;
+      }
+      .buttonComponent {
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+  
