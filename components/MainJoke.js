@@ -1,34 +1,45 @@
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 
-import { data } from "../public/data";
+// import { data } from "../public/data";
 
 import ThisJoke from "./ThisJoke";
 import styles from "@/styles/MainJoke.module.scss";
 
 
 const MainJoke = () => {
-  const dataArr = data
-    .filter((sp) => sp.id !== parseInt(Cookies?.get(sp?.id)?.slice(0)))
-    ?.map((item) => item.id);
-  console.log(dataArr);
-  const [show, setShow] = useState(dataArr[0]);
+  const [data, setData] = useState([]);
+  const [show, setShow] = useState(0)
+  const [dataArr, setDataArr] = useState([])
+  const sendRequest = () => {
+    fetch("api/data/")
+      .then((res) => res.json())
+      .then((data) => setData(data.message))
+      .catch((err) => console.log(err));
+  };
   const handleFunnyClick = (id) => {
-    Cookies.set(id, `${id}_funny`);
+    Cookies.set(id, `FN_${id}`);
     handleNext();
   };
   const handleNotFunnyClick = (id) => {
-    Cookies.set(id, `${id}_notFunny`);
-    handleNext();
+    Cookies.set(id, `NF_${id}`);
+    handleNext()
   };
   const handleNext = () => {
-    setShow(
-      data
-        .filter((sp) => sp.id !== parseInt(Cookies?.get(sp?.id)?.slice(0)))
-        ?.map((item) => item.id)[0]
-    );
+    setShow(data.filter((item) => !Cookies.get(item._id))[0]?._id)
   };
+  useEffect(() => {
+    sendRequest();
+  }, []);
+  useEffect(() => {
+    if(data) {
+      setDataArr(data.filter((item) => !Cookies.get(item._id)))
+      setShow(dataArr[0]?._id)
+    }
+  }, [data])
+  console.log(dataArr)
+  console.log(show)
   if (dataArr.length === 0) {
     return (
       <div className={styles.MainJoke}>
@@ -38,15 +49,16 @@ const MainJoke = () => {
       </div>
     );
   }
+
   return (
     <div className={styles.MainJoke}>
-      {data.map((item, index) => {
+      {dataArr.map((item, index) => {
         return (
-          !Cookies.get(item.id) && (
-            <div key={item.id}>
-              {item.id === show && (
+          (show === item._id &&
+            <div key={item._id}>
+              {(
                 <div className={styles.MainJoke__Container}>
-                  <ThisJoke content={item.content} />
+                  <ThisJoke content={item.story} />
                   <div
                     className={`spliter ${styles.joke_spliter}`}
                     style={{ width: "80%", margin: "0 auto" }}
@@ -55,12 +67,12 @@ const MainJoke = () => {
                     <Button
                       secondary
                       content="This is Funny!"
-                      onClick={() => handleFunnyClick(item.id)}
+                      onClick={() => handleFunnyClick(item._id)}
                     />
                     <Button
                       primary
                       content="This is not funny."
-                      onClick={() => handleNotFunnyClick(item.id)}
+                      onClick={() => handleNotFunnyClick(item._id)}
                     />
                   </div>
                 </div>
