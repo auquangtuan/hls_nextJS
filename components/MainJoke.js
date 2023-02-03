@@ -7,7 +7,6 @@ import Button from "../components/Button";
 import ThisJoke from "./ThisJoke";
 import styles from "@/styles/MainJoke.module.scss";
 
-
 const MainJoke = () => {
   const [data, setData] = useState([]);
   const [show, setShow] = useState(0)
@@ -27,14 +26,14 @@ const MainJoke = () => {
     handleNext()
   };
   const handleNext = () => {
-    setShow(data.filter((item) => !Cookies.get(item._id))[0]?._id)
+    setShow(data?.filter((item) => !Cookies.get(item._id))[0]?._id)
   };
   useEffect(() => {
     sendRequest();
   }, []);
   useEffect(() => {
-    if(data) {
-      setDataArr(data.filter((item) => !Cookies.get(item._id)))
+    if (data) {
+      setDataArr(data?.filter((item) => !Cookies.get(item._id)))
       setShow(dataArr[0]?._id)
     }
   }, [data])
