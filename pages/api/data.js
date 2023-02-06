@@ -1,11 +1,9 @@
-import { MongoClient, ObjectId} from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 // "mongodb+srv://auquangtuan:oxG0NhTCp2n93E7A@cluster.xlkxs96.mongodb.net/behls"
 async function handler(req, res) {
-  const client = await MongoClient.connect("mongodb+srv://auquangtuan:oxG0NhTCp2n93E7A@cluster.xlkxs96.mongodb.net/behls");
-  console.log("client",client)
-  const db = client.db("story");
-  console.log(db)
+  const client = await MongoClient.connect("mongodb://127.0.0.1:27017/story");
+  const db = client.db("story");  
 
   switch (req.method) {
     case "GET": {
@@ -21,26 +19,28 @@ async function handler(req, res) {
         story,
       };
       const createData = await db.collection("story").insertOne(newData);
-      console.log(createData)
+      console.log("createData",createData)
       return res.status(201).json({ message: "Added", data: newData });
     }
     case "PUT": {
       const { id, story } = req.body
-      
+
       const updateData = await db.collection("story").updateOne({
-        id : ObjectID(id)
+        _id: ObjectId(id)
       },
-      {
-        $set : {
-          story : story,
-        }
-      })
+        {
+          $set: {
+            story: story,
+          }
+        })
 
       return res.status(201).json({ message: "Added", data: updateData })
     }
     case "DELETE": {
       const { id } = req.body
-      await db.collection("story").deleteOne(id)
+      await db.collection("story").deleteOne({
+        _id: new ObjectId(id)
+      })
       return res.status(200).json({
         message: "Xóa Thành Công"
       })

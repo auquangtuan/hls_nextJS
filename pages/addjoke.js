@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
-import Button from "@/components/Button";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
+import Button from "@/components/Button";ư
 const AddJoke = () => {
   const [content, setContent] = useState("");
-  const router = useRouter();
+
   const sendRequest = () => {
     fetch("/api/data/", {
-      method : "POST",
-      body : JSON.stringify({
-        story : content
+      method: "POST",
+      body: JSON.stringify({
+        story: content
       }),
-      headers : {
-        "Content-Type" : "application/json"
+      headers: {
+        "Content-Type": "application/json"
       }
-    }).then((res) => res.json()).then((data) => alert(data.message) && console.log(data)).catch((err) => console.log(err))
+    }).then((res) => res.json()).then((data) => alert(data.message)).then(() => setContent("")).catch((err) => console.log(err))
   }
   const handleClick = (e) => {
     e.preventDefault()
-    if(content.length < 1) {
+    if (content.length < 1) {
       alert("Bạn cần nhập nội dung")
     } else {
       sendRequest()

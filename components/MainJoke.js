@@ -36,52 +36,48 @@ const MainJoke = () => {
       setDataArr(data?.filter((item) => !Cookies.get(item._id)))
     }
   }, [data])
-  useEffect(()=>{
-    setShow(dataArr[0]?._id)  
-  },[dataArr])
-  console.log(dataArr)
-  console.log(show)
-  if (dataArr.length === 0) {
-    return (
-      <div className={styles.MainJoke}>
-        <div className={styles.MainJoke__Container}>
-          <ThisJoke content="That's all the jokes for today! Come back another day!" />
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    setShow(dataArr[0]?._id)
+  }, [dataArr])
+
 
   return (
     <div className={styles.MainJoke}>
-      {dataArr.map((item, index) => {
-        return (
-          (show === item._id &&
-            <div key={item._id}>
-              {(
-                <div className={styles.MainJoke__Container}>
-                  <ThisJoke content={item.story} />
-                  <div
-                    className={`spliter ${styles.joke_spliter}`}
-                    style={{ width: "80%", margin: "0 auto" }}
-                  ></div>
-                  <div className={styles.MainJoke__button}>
-                    <Button
-                      secondary
-                      content="This is Funny!"
-                      onClick={() => handleFunnyClick(item._id)}
-                    />
-                    <Button
-                      primary
-                      content="This is not funny."
-                      onClick={() => handleNotFunnyClick(item._id)}
-                    />
+      {(data?.filter((item) => !Cookies.get(item._id))).length === 0 ?
+        <div className={styles.MainJoke}>
+          <div className={styles.MainJoke__Container}>
+            <ThisJoke content="That's all the jokes for today! Come back another day!" />
+          </div>
+        </div>
+        : dataArr.map((item, index) => {
+          return (
+            (show === item._id &&
+              <div key={item._id}>
+                {(
+                  <div className={styles.MainJoke__Container}>
+                    <ThisJoke content={item.story} />
+                    <div
+                      className={`spliter ${styles.joke_spliter}`}
+                      style={{ width: "80%", margin: "0 auto" }}
+                    ></div>
+                    <div className={styles.MainJoke__button}>
+                      <Button
+                        secondary
+                        content="This is Funny!"
+                        onClick={() => handleFunnyClick(item._id)}
+                      />
+                      <Button
+                        primary
+                        content="This is not funny."
+                        onClick={() => handleNotFunnyClick(item._id)}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          )
-        );
-      })}
+                )}
+              </div>
+            )
+          );
+        })}
     </div>
   );
 };
