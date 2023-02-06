@@ -26,7 +26,7 @@ const MainJoke = () => {
     handleNext()
   };
   const handleNext = () => {
-    setShow(data?.filter((item) => !Cookies.get(item.id))[0]?.id)
+    setShow(data?.filter((item) => !Cookies.get(item.id))[0]?._id)
   };
   useEffect(() => {
     sendRequest();
