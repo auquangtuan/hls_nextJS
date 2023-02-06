@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "@/components/Button";ư
+import Button from "@/components/Button";
 const AddJoke = () => {
   const [content, setContent] = useState("");
 
