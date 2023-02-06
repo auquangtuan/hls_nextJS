@@ -2,8 +2,8 @@ import { MongoClient, ObjectId } from "mongodb";
 
 // "mongodb+srv://auquangtuan:oxG0NhTCp2n93E7A@cluster.xlkxs96.mongodb.net/behls"
 async function handler(req, res) {
-  const client = await MongoClient.connect("mongodb://127.0.0.1:27017/story");
-  const db = client.db("story");  
+  const client = await MongoClient.connect("mongodb+srv://auquangtuan:oxG0NhTCp2n93E7A@cluster.xlkxs96.mongodb.net/behls");
+  const db = client.db("story");
 
   switch (req.method) {
     case "GET": {
@@ -19,7 +19,7 @@ async function handler(req, res) {
         story,
       };
       const createData = await db.collection("story").insertOne(newData);
-      console.log("createData",createData)
+      console.log("createData", createData)
       return res.status(201).json({ message: "Added", data: newData });
     }
     case "PUT": {
