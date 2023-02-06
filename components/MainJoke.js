@@ -26,14 +26,14 @@ const MainJoke = () => {
     handleNext()
   };
   const handleNext = () => {
-    setShow(data?.filter((item) => !Cookies.get(item.id))[0]?._id)
+    setShow(data?.filter((item) => !Cookies.get(item._id))[0]?._id)
   };
   useEffect(() => {
     sendRequest();
   }, []);
   useEffect(() => {
     if (data.length > 0) {
-      setDataArr(data?.filter((item) => !Cookies.get(item.id)))
+      setDataArr(data?.filter((item) => !Cookies.get(item._id)))
     }
   }, [data])
   useEffect(()=>{
