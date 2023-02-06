@@ -34,9 +34,11 @@ const MainJoke = () => {
   useEffect(() => {
     if (data.length > 0) {
       setDataArr(data?.filter((item) => !Cookies.get(item.id)))
-      setShow(dataArr[0]?._id)
     }
   }, [data])
+  useEffect(()=>{
+    setShow(dataArr[0]?._id)  
+  },[dataArr])
   console.log(dataArr)
   console.log(show)
   if (dataArr.length === 0) {
