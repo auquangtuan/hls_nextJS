@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId} from "mongodb";
 
 // "mongodb+srv://auquangtuan:oxG0NhTCp2n93E7A@cluster.xlkxs96.mongodb.net/behls"
 async function handler(req, res) {
@@ -26,12 +26,17 @@ async function handler(req, res) {
     }
     case "PUT": {
       const { id, story } = req.body
-      const newData = {
-        story
-      }
-      const updateData = await db.collection("story").findOneAndUpdate(id, newData)
+      
+      const updateData = await db.collection("story").updateOne({
+        id : ObjectID(id)
+      },
+      {
+        $set : {
+          story : story,
+        }
+      })
 
-      return res.status(201).json({ message: "Added", data: newData })
+      return res.status(201).json({ message: "Added", data: updateData })
     }
     case "DELETE": {
       const { id } = req.body

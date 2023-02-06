@@ -32,7 +32,7 @@ const MainJoke = () => {
     sendRequest();
   }, []);
   useEffect(() => {
-    if (data) {
+    if (data.length > 0) {
       setDataArr(data?.filter((item) => !Cookies.get(item._id)))
       setShow(dataArr[0]?._id)
     }
